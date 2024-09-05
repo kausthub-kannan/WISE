@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "wise"
 version = "0.1.0"
-description = ""
+description = "Web Intellgent agent for your automation"
 authors = ["kausthub-kannan <kausthubkannan961@gmail.com>"]
 readme = "README.md"
 packages = [{include = "wise"}]
@@ -16,7 +16,6 @@ faiss-cpu = "^1.8.0.post1"
 hf-transfer = "^0.1.8"
 langchain = "^0.2.16"
 llama-index-readers-file = "^0.2.0"
-
 
 [[tool.poetry.source]]
 name = "torch-cpu"

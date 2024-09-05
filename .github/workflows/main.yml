@@ -1,40 +1,72 @@
-name: Python Code Quality and Build
+name: Python Code Quality, Build, and Release
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  release:
+    types: [created]
 
 jobs:
   quality-and-build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
-    
+
     - name: Install dependencies
       run: |
         pip install poetry
-        pip install ruff
-        pip install black
         poetry install
-    
+
     - name: Run Ruff
       run: poetry run ruff check .
-    
+
     - name: Run Black
       run: poetry run black --check .
-    
+
     - name: Build package
       run: poetry build
-    
+
     - name: Upload built package
       uses: actions/upload-artifact@v3
       with:
         name: dist
         path: dist/
+
+  release:
+    needs: quality-and-build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'created'
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install poetry
+
+    - name: Build package
+      run: poetry build
+
+    - name: Get package version
+      id: get_version
+      run: echo ::set-output name=VERSION::$(poetry version -s)
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./dist/your_package_name-${{ steps.get_version.outputs.VERSION }}.tar.gz
+        asset_name: your_package_name-${{ steps.get_version.outputs.VERSION }}.tar.gz
+        asset_content_type: application/gzip
