@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
+
 class GoogleFormScrapper:
     def __init__(self, driver_type="chrome"):
         if driver_type == "chrome":

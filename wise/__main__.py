@@ -10,7 +10,7 @@ import getpass
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 handler = logging.StreamHandler()
-formatter = logging.Formatter('%(levelname)s - %(message)s')
+formatter = logging.Formatter("%(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
@@ -50,8 +50,9 @@ def main():
         result.append(response)
         logger.info(f"Processed Question {i}")
 
-    with open(args.output_path, 'w') as f:
+    with open(args.output_path, "w") as f:
         json.dump(result, f, indent=4)
+
 
 if __name__ == "__main__":
     main()
