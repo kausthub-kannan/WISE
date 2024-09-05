@@ -1,25 +1,31 @@
-rail_schema = """
-<rail version="0.1">
+from langchain.output_parsers import ResponseSchema
 
-<output>
-    <list name="points" description="Bullet points regarding events in the author's life.">
-        <object>
-            <string name="explanation" format="one-line" on-fail-one-line="noop" />
-            <string name="explanation2" format="one-line" on-fail-one-line="noop" />
-            <string name="explanation3" format="one-line" on-fail-one-line="noop" />
-        </object>
-    </list>
-</output>
-
-<prompt>
-
-Query string here.
-
-@xml_prefix_prompt
-
-{output_schema}
-
-@json_suffix_prompt_v2_wo_none
-</prompt>
-</rail>
-"""
+qa_response_schema = [
+    ResponseSchema(
+        name="question",
+        description="The question extracted from the HTML.",
+    ),
+    ResponseSchema(
+        name="answer_pairs",
+        description="List of pairs containing the answer and its corresponding XPath.",
+        type="array",
+        items={
+            "type": "object",
+            "properties": {
+                "answer": {
+                    "type": "string",
+                    "description": "The answer found in the context.",
+                },
+                "answer_xpath": {
+                    "type": "string",
+                    "description": "The XPath corresponding to the answer or input box.",
+                },
+            },
+            "required": ["answer", "answer_xpath"],
+        },
+    ),
+    ResponseSchema(
+        name="input_data_type",
+        description="Data type of the input required for the question.",
+    ),
+]

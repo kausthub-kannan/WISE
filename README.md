@@ -22,6 +22,7 @@ valuable information. For dynamic tasks such as filling forms, this information 
 - [ ] Obtain XPath of UI elements to fill the form using Web driver
 - [ ] When given the `Replay.json`, reference it to understand the workflow such as the order in which the form is filled
 - [ ] Link external references if required
+- [ ] Use OSS LLMs with LlamaCPP support
 
 ## Installation
 Install the tar file using the following command:
