@@ -1,0 +1,40 @@
+name: Python Code Quality and Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  quality-and-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Install dependencies
+      run: |
+        pip install poetry
+        pip install ruff
+        pip install black
+        poetry install
+    
+    - name: Run Ruff
+      run: poetry run ruff check .
+    
+    - name: Run Black
+      run: poetry run black --check .
+    
+    - name: Build package
+      run: poetry build
+    
+    - name: Upload built package
+      uses: actions/upload-artifact@v3
+      with:
+        name: dist
+        path: dist/
