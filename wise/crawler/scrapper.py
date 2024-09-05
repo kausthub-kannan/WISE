@@ -8,6 +8,10 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 class GoogleFormScrapper:
     def __init__(self, driver_type="chrome"):
+        """
+        Initialize the scrapper with the driver type
+        :param driver_type (optional):  of the driver to use. Either 'chrome' or 'firefox', defaults to 'chrome'
+        """
         if driver_type == "chrome":
             chrome_options = ChromeOptions()
             chrome_options.add_argument("--headless")
@@ -20,6 +24,11 @@ class GoogleFormScrapper:
             raise ValueError("Invalid driver type. Choose either 'chrome' or 'firefox'")
 
     def scrape(self, url):
+        """
+        Scrape the Google form for questions
+        :param url: URL of the Google form
+        :return: List of questions scrapped from the form
+        """
         try:
             self.driver.get(url)
 

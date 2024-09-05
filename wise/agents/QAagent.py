@@ -12,6 +12,10 @@ import ast
 
 class QAagent:
     def __init__(self, data_dir="dummy_data"):
+        """
+        Initialize the QA agent with the data directory
+        :param data_dir (optional): The directory containing the context
+        """
         api_key = os.environ["GROQ_API_KEY"]
 
         embed_model = HuggingFaceEmbedding(
@@ -40,6 +44,12 @@ class QAagent:
         self.query_engine = self.index.as_query_engine(llm=self.llm)
 
     def chat(self, data: str, prompt: str):
+        """
+        Chat with the QA agent
+        :param data: RAW HTML data obtained from the scrapper
+        :param prompt: The prompt to be used for the query given by uder
+        :return: JSON response
+        """
         prompt = qaPrompt.format(raw_html=data, prompt=prompt)
         response = self.query_engine.query(prompt)
 
