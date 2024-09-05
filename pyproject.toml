@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "wise"
+version = "0.1.0"
+description = ""
+authors = ["kausthub-kannan <kausthubkannan961@gmail.com>"]
+readme = "README.md"
+packages = [{include = "wise"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+selenium = "^4.24.0"
+torch = { version = "^2.4.0", source = "torch-cpu" }
+llama-index-embeddings-huggingface = "^0.3.0"
+llama-index-llms-groq = "^0.2.0"
+faiss-cpu = "^1.8.0.post1"
+hf-transfer = "^0.1.8"
+langchain = "^0.2.16"
+llama-index-readers-file = "^0.2.0"
+
+
+[[tool.poetry.source]]
+name = "torch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
+[tool.poetry.scripts]
+wise = "wise.__main__:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
