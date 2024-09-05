@@ -26,10 +26,14 @@ valuable information. For dynamic tasks such as filling forms, this information 
 
 ## Installation
 Install the tar file using the following command:
+```bash
+wget https://github.com/kausthub-kannan/WISE/releases/download/0.1.0/wise-0.1.0.tar.gz
+```
+or install it from this [link](https://github.com/kausthub-kannan/WISE/releases/download/0.1.0/wise-0.1.0.tar.gz)
 
 Now install the package using pip
 ```bash
-pip install wise.tar.gz
+pip install wise-0.1.0.tar.gz
 ```
 
 ## Usage
